@@ -67,4 +67,47 @@ export const fetchRate = (id, scur, tcur) => {
     };
 };
 
+export const fetchTypeStarted = () => ({
+    type: FETCH_STARTED,
+});
+
+export const fetchTypeSuccess = (result) => ({
+    type: FETCH_SUCCESS,
+    result: {
+        types: result
+    }
+
+});
+
+export const fetchTypeFailure = () => ({
+    type: FETCH_FAILURE,
+});
+
+export const fetchType = () => {
+    return (dispatch) => {
+        const apiUrl = `/api/v1/currency/currency-type/`;
+
+
+        const dispatchIfValid = (action) => {
+            return dispatch(action);
+        };
+
+        dispatchIfValid(fetchTypeStarted());
+
+        fetch(apiUrl).then((response) => {
+            if (response.status !== 200) {
+                throw new Error('Fail to get response with status ' + response.status);
+            }
+
+            response.json().then((response) => {
+                dispatchIfValid(fetchTypeSuccess(response));
+            }).catch((error) => {
+                dispatchIfValid(fetchTypeFailure(error));
+            });
+        }).catch((error) => {
+            dispatchIfValid(fetchTypeFailure(error));
+        })
+    };
+};
+
 

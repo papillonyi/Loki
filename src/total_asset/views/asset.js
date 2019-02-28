@@ -6,9 +6,9 @@ import {fetchRate} from "../actions";
 
 
 class Asset extends Component {
-    constructor(props, context) {
-        super(props, context);
-    }
+    // constructor(props, context) {
+    //     super(props, context);
+    // }
 
     componentDidMount() {
         this.props.fetchData(this.props.id, this.props.scur, this.props.tcur)
@@ -22,7 +22,7 @@ class Asset extends Component {
             case Status.SUCCESS: {
                 return (
                     <div>
-                        {this.props.scur} => {this.props.tcur} rate: {this.props.rate}
+                        {this.props.children}  rate: {this.props.rate}
                     </div>
                 )
             }
@@ -39,6 +39,7 @@ class Asset extends Component {
 
 Asset.propTypes = {
     status: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
     id: PropTypes.number,
     scur: PropTypes.number,
     tcur: PropTypes.number,
