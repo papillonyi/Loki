@@ -43,7 +43,7 @@ export const fetchRateFailure = (id, scur, tcur, error) => ({
 
 export const fetchRate = (id, scur, tcur) => {
     return (dispatch) => {
-        const apiUrl = `/api/v1/currency/scur/${scur}/tcur/${tcur}`;
+        const apiUrl = `${config.SERVER}/api/v1/currency/scur/${scur}/tcur/${tcur}`;
 
 
         const dispatchIfValid = (action) => {

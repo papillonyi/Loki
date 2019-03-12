@@ -2,7 +2,6 @@
   "name": "loki",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://thor.qijiucao.top/",
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
