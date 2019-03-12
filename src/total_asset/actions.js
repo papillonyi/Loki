@@ -1,5 +1,6 @@
 import {FETCH_STARTED, FETCH_SUCCESS, FETCH_FAILURE} from './actionTypes.js';
 import * as Status from "./status";
+import config from '../config'
 
 export const fetchRateStarted = (id, scur, tcur) => ({
     type: FETCH_STARTED,
@@ -85,7 +86,7 @@ export const fetchTypeFailure = () => ({
 
 export const fetchType = () => {
     return (dispatch) => {
-        const apiUrl = `/api/v1/currency/currency-type/`;
+        const apiUrl = `${config.SERVER}/api/v1/currency/currency-type/`;
 
 
         const dispatchIfValid = (action) => {
@@ -94,7 +95,8 @@ export const fetchType = () => {
 
         dispatchIfValid(fetchTypeStarted());
 
-        fetch(apiUrl).then((response) => {
+        fetch(apiUrl, {
+        }).then((response) => {
             if (response.status !== 200) {
                 throw new Error('Fail to get response with status ' + response.status);
             }
