@@ -3,7 +3,7 @@ pipeline:
     image: node:10.15
     commands:
       - npm install
-      - npm build
+      - npm run-script build
   publish:
     image: plugins/docker
     repo: registry-vpc.cn-shanghai.aliyuncs.com/papillonyispace/loki
