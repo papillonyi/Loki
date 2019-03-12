@@ -1,6 +1,6 @@
 pipeline:
   build:
-    image: noe:10.15
+    image: node:10.15
     commands:
       - npm install
       - npm build
