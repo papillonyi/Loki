@@ -1,47 +1,41 @@
-import {FETCH_STARTED, FETCH_SUCCESS, FETCH_FAILURE} from './actionTypes.js';
+import * as type from './actionTypes.js';
 import * as Status from "./status";
 import config from '../config'
 
-export const fetchRateStarted = (id, scur, tcur) => ({
-    type: FETCH_STARTED,
+export const fetchRateStarted = (scur, tcur) => ({
+    type: type.FETCH_RATE_STARTED,
     result: {
-        [id]: {
-            scur: scur,
-            tcur: tcur,
-            rate: 0,
-            status: Status.LOADING
-        }
+        scur: scur,
+        tcur: tcur,
+        rate: 0,
+        status: Status.LOADING
     }
 
 });
 
-export const fetchRateSuccess = (id, scur, tcur, result) => ({
-    type: FETCH_SUCCESS,
+export const fetchRateSuccess = (scur, tcur, result) => ({
+    type: type.FETCH_RATE_SUCCESS,
     result: {
-        [id]: {
-            scur: scur,
-            tcur: tcur,
-            rate: result,
-            status: Status.SUCCESS
-        }
+        scur: scur,
+        tcur: tcur,
+        rate: result,
+        status: Status.SUCCESS
     }
 
 });
 
-export const fetchRateFailure = (id, scur, tcur, error) => ({
-    type: FETCH_FAILURE,
+export const fetchRateFailure = (scur, tcur, error) => ({
+    type: type.FETCH_RATE_FAILURE,
     result: {
-        [id]: {
-            scur: scur,
-            tcur: tcur,
-            rate: error,
-            status: Status.FAILURE
-        }
+        scur: scur,
+        tcur: tcur,
+        rate: error,
+        status: Status.FAILURE
     }
 
 });
 
-export const fetchRate = (id, scur, tcur) => {
+export const fetchRate = (scur, tcur) => {
     return (dispatch) => {
         const apiUrl = `${config.SERVER}/api/v1/currency/scur/${scur}/tcur/${tcur}`;
 
@@ -50,7 +44,7 @@ export const fetchRate = (id, scur, tcur) => {
             return dispatch(action);
         };
 
-        dispatchIfValid(fetchRateStarted(id, scur, tcur));
+        dispatchIfValid(fetchRateStarted(scur, tcur));
 
         fetch(apiUrl).then((response) => {
             if (response.status !== 200) {
@@ -58,22 +52,22 @@ export const fetchRate = (id, scur, tcur) => {
             }
 
             response.json().then((response) => {
-                dispatchIfValid(fetchRateSuccess(id, scur, tcur, response));
+                dispatchIfValid(fetchRateSuccess(scur, tcur, response));
             }).catch((error) => {
-                dispatchIfValid(fetchRateFailure(id, scur, tcur, error));
+                dispatchIfValid(fetchRateFailure(scur, tcur, error));
             });
         }).catch((error) => {
-            dispatchIfValid(fetchRateFailure(id, scur, tcur, error));
+            dispatchIfValid(fetchRateFailure(scur, tcur, error));
         })
     };
 };
 
 export const fetchTypeStarted = () => ({
-    type: FETCH_STARTED,
+    type: type.FETCH_STARTED,
 });
 
 export const fetchTypeSuccess = (result) => ({
-    type: FETCH_SUCCESS,
+    type: type.FETCH_SUCCESS,
     result: {
         types: result
     }
@@ -81,7 +75,7 @@ export const fetchTypeSuccess = (result) => ({
 });
 
 export const fetchTypeFailure = () => ({
-    type: FETCH_FAILURE,
+    type: type.FETCH_FAILURE,
 });
 
 export const fetchType = () => {

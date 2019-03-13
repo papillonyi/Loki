@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import * as Status from '../status.js';
+// import * as Status from '../status.js';
 import {fetchRate} from "../actions";
+
+import RateCard from '../../components/rateCard'
 
 
 class Asset extends Component {
@@ -11,36 +13,19 @@ class Asset extends Component {
     // }
 
     componentDidMount() {
-        this.props.fetchData(this.props.id, this.props.scur, this.props.tcur)
+        this.props.fetchData(this.props.scur, this.props.tcur)
     }
 
     render() {
-        switch (this.props.status) {
-            case Status.LOADING: {
-                return <div>信息请求中...</div>;
-            }
-            case Status.SUCCESS: {
-                return (
-                    <div>
-                        {this.props.children}  rate: {this.props.rate}
-                    </div>
-                )
-            }
-            case Status.FAILURE: {
-                return <div>信息装载失败</div>
-            }
-            default: {
-                throw new Error('unexpected status ' + this.props.status);
-            }
-        }
+        return (
+                <RateCard rate={this.props.rate} tscur={"test"}/>
+        )
     }
 
 }
 
 Asset.propTypes = {
-    status: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
-    id: PropTypes.number,
+    typeInfo: PropTypes.array,
     scur: PropTypes.number,
     tcur: PropTypes.number,
     rate: PropTypes.number,
@@ -49,16 +34,21 @@ Asset.propTypes = {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchData: (id, scur, tcur) => {
-            dispatch(fetchRate(id, scur, tcur));
+        fetchData: (scur, tcur) => {
+            dispatch(fetchRate(scur, tcur));
         }
     }
 };
 
 const mapStateToProps = (state, ownProps) => {
-    const id = ownProps.id;
-    const info = state.totalAsset[id] || {status: Status.LOADING, rate: 0};
-    return {rate: info.rate, status: info.status}
+    let rate = 0;
+    try {
+        rate = state.totalAsset[ownProps.scur][ownProps.tcur];
+
+    }
+    catch(error) {
+    }
+    return {typeInfo: state.totalAsset.types, rate: rate}
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Asset);
