@@ -8,17 +8,20 @@ import RateCard from '../../components/rateCard'
 
 
 class Asset extends Component {
-    // constructor(props, context) {
-    //     super(props, context);
-    // }
 
     componentDidMount() {
         this.props.fetchData(this.props.scur, this.props.tcur)
     }
 
+
+
     render() {
+        const scurrency = this.props.typeInfo.find(x => x.ID === this.props.scur);
+        const tcurrency = this.props.typeInfo.find(x => x.ID === this.props.tcur);
+
+
         return (
-                <RateCard rate={this.props.rate} tscur={"test"}/>
+            <RateCard rate={this.props.rate} tscur={`${scurrency['CurrencyName']} => ${tcurrency['CurrencyName']}`}/>
         )
     }
 
@@ -48,6 +51,7 @@ const mapStateToProps = (state, ownProps) => {
     }
     catch(error) {
     }
+    console.log(state.totalAsset.types);
     return {typeInfo: state.totalAsset.types, rate: rate}
 };
 

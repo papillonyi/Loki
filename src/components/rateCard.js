@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = {
     card: {
-        minWidth: 275,
+        minWidth: 240,
     },
     bullet: {
         display: 'inline-block',
@@ -23,8 +23,6 @@ const styles = {
 };
 
 function RateCard({classes, rate, tscur}) {
-    // const { classes } = props;
-    // const bull = <span className={classes.bullet}>•</span>;
 
     return (
         <Card className={classes.card}>

@@ -15,12 +15,9 @@ class Total extends Component {
 
     render() {
 
-        return this.props.typeInfo.map(
-            (v, i) => {
-                return <ScurTable scur={v.ID} key={i}/>
-            }
-        )
+        return this.props.typeInfo.map((v, i) => <ScurTable scur={v.ID} key={i}/>)
     }
+
 }
 
 Total.propTypes ={
