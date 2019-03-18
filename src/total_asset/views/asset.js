@@ -13,8 +13,6 @@ class Asset extends Component {
         this.props.fetchData(this.props.scur, this.props.tcur)
     }
 
-
-
     render() {
         const scurrency = this.props.typeInfo.find(x => x.ID === this.props.scur);
         const tcurrency = this.props.typeInfo.find(x => x.ID === this.props.tcur);
