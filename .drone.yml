@@ -4,6 +4,7 @@ pipeline:
     commands:
       - npm install
       - npm run-script build
+      - cat /root/.npm/_logs/*
   publish:
     image: plugins/docker
     repo: registry-vpc.cn-shanghai.aliyuncs.com/papillonyispace/loki
