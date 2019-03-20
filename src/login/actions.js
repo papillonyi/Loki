@@ -26,6 +26,8 @@ export const logstatus = (user, password) => {
         dispatch(fetchTypeStarted());
 
         fetch(apiUrl, {
+            credentials: "include",
+            mode: 'cors',
         }).then((response) => {
             if (response.status !== 200) {
                 throw new Error('Fail to get response with status ' + response.status);

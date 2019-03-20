@@ -47,7 +47,7 @@ export const fetchRate = (scur, tcur) => {
         dispatchIfValid(fetchRateStarted(scur, tcur));
 
         fetch(apiUrl, {
-            credentials: 'include',
+            credentials: "include",
             mode: 'cors',
         }).then((response) => {
             if (response.status !== 200) {
@@ -93,8 +93,8 @@ export const fetchType = () => {
         dispatchIfValid(fetchTypeStarted());
 
         fetch(apiUrl, {
-            mode: 'cors',
-            credentials: 'include'
+            // mode: 'cors',
+            credentials: "include"
         }).then((response) => {
             if (response.status !== 200) {
                 throw new Error('Fail to get response with status ' + response.status);
