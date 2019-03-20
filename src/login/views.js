@@ -11,6 +11,19 @@ import {logstatus} from "./actions";
 import {connect} from "react-redux";
 
 class LoginDial extends React.Component {
+
+    constructor(props, context) {
+        super(props, context);
+
+        // this.onSubmit = this.onSubmit.bind(this);
+        this.onInputPasswordChange = this.onInputPasswordChange.bind(this);
+        this.onInputUsernameChange = this.onInputUsernameChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+
+        this.state = {
+            open: false,
+        };
+    }
     state = {
         open: false,
     };
@@ -22,6 +35,22 @@ class LoginDial extends React.Component {
     handleClose = () => {
         this.setState({ open: false });
     };
+
+    handleSubmit = () => {
+        this.props.login(this.state.username, this.state.password)
+    };
+
+    onInputPasswordChange(event) {
+        this.setState({
+            password: event.target.value
+        });
+    }
+
+    onInputUsernameChange(event) {
+        this.setState({
+            username: event.target.value
+        });
+    }
 
     render() {
         return (
@@ -40,7 +69,7 @@ class LoginDial extends React.Component {
                             To subscribe to this website, please enter your email address here. We will send
                             updates occasionally.
                         </DialogContentText>
-                        <TextField
+                        <TextField onChange={this.onInputUsernameChange}
                             id="standard-name"
                             label="Name"
                             // className={classes.textField}
@@ -49,7 +78,7 @@ class LoginDial extends React.Component {
                             margin="normal"
                             fullWidth
                         />
-                        <TextField
+                        <TextField onChange={this.onInputPasswordChange}
                             id="standard-password-input"
                             label="Password"
                             // className={classes.textField}
@@ -63,7 +92,7 @@ class LoginDial extends React.Component {
                         <Button onClick={this.handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={this.handleClose} color="primary">
+                        <Button onClick={this.handleSubmit} color="primary">
                             Subscribe
                         </Button>
                     </DialogActions>
