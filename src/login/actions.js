@@ -1,5 +1,4 @@
 import * as type from './actionTypes.js';
-import * as Status from "./status";
 import config from '../config'
 
 
