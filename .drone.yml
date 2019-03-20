@@ -2,9 +2,9 @@ pipeline:
   build:
     image: node:10.15
     commands:
-      - npm install
-      - npm run-script build
-      - cat /root/.npm/_logs/*
+      - yarn install
+      - yarn build
+#      - cat /root/.npm/_logs/*
   publish:
     image: plugins/docker
     repo: registry-vpc.cn-shanghai.aliyuncs.com/papillonyispace/loki
